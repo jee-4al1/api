@@ -4,8 +4,10 @@ import java.util.List;
 import io.swagger.model.Sneaker;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.repository.SneakerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,6 +34,9 @@ public class SneakersApiController implements SneakersApi {
 
     private final HttpServletRequest request;
 
+    @Autowired
+    private SneakerRepository sneakerRepository;
+
     @org.springframework.beans.factory.annotation.Autowired
     public SneakersApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
@@ -40,7 +45,9 @@ public class SneakersApiController implements SneakersApi {
 
     public ResponseEntity<Void> createSneakersWithArrayInput(@ApiParam(value = "List of sneaker object" ,required=true )  @Valid @RequestBody List<Sneaker> body) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        System.out.println(body);
+        body.forEach(sneaker -> sneakerRepository.add(sneaker));
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     public ResponseEntity<List<Sneaker>> getAll() {
@@ -54,7 +61,7 @@ public class SneakersApiController implements SneakersApi {
             }
         }
 
-        return new ResponseEntity<List<Sneaker>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<List<Sneaker>>(sneakerRepository.findAll(),HttpStatus.OK);
     }
 
     public ResponseEntity<Sneaker> getSneakerById(@ApiParam(value = "ID of sneaker to return",required=true) @PathVariable("sneakerId") String sneakerId) {
