@@ -7,4 +7,6 @@ import java.util.List;
 public interface SneakerRepository {
     void add(Sneaker sneaker);
     List<Sneaker> findAll();
+    Sneaker findById(String id);
+    void delete(String id);
 }

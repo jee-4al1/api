@@ -14,14 +14,17 @@ public class InMemorySneakerRepository implements SneakerRepository {
 
     private final Map<String, Sneaker> data = new ConcurrentHashMap<>();
 
+    @Override
     public void add(Sneaker Sneaker) {
         data.put(nextIdentity(), Sneaker);
     }
 
+    @Override
     public void delete(String id) {
         data.remove(id);
     }
 
+    @Override
     public List<Sneaker> findAll() {
         return List.copyOf(data.values());
     }
@@ -30,6 +33,7 @@ public class InMemorySneakerRepository implements SneakerRepository {
         return String.valueOf(count.incrementAndGet());
     }
 
+    @Override
     public Sneaker findById(String id) {
         return data.get(id);
     }
