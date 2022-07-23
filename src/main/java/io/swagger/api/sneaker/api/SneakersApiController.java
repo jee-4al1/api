@@ -1,10 +1,10 @@
-package io.swagger.api;
+package io.swagger.api.sneaker.api;
 
 import java.util.List;
-import io.swagger.model.Sneaker;
+import io.swagger.api.sneaker.model.Sneaker;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
-import io.swagger.repository.SneakerRepository;
+import io.swagger.api.sneaker.repository.SneakerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.List;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-06-03T10:33:57.949Z")
 
 @Controller
@@ -61,7 +56,7 @@ public class SneakersApiController implements SneakersApi {
             }
         }
 
-        return new ResponseEntity<List<Sneaker>>(sneakerRepository.findAll(),HttpStatus.OK);
+        return new ResponseEntity<List<Sneaker>>(sneakerRepository.findAll(), HttpStatus.OK);
     }
 
     public ResponseEntity<Sneaker> getSneakerById(@ApiParam(value = "ID of sneaker to return",required=true) @PathVariable("sneakerId") String sneakerId) {
@@ -77,5 +72,4 @@ public class SneakersApiController implements SneakersApi {
 
         return new ResponseEntity<Sneaker>(HttpStatus.NOT_IMPLEMENTED);
     }
-
 }

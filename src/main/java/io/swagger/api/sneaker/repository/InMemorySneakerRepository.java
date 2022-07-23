@@ -1,6 +1,6 @@
-package io.swagger.repository;
+package io.swagger.api.sneaker.repository;
 
-import io.swagger.model.Sneaker;
+import io.swagger.api.sneaker.model.Sneaker;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

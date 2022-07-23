@@ -1,29 +1,33 @@
-package io.swagger.model;
+package io.swagger.api.sneaker.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Tag
+ * Sneaker
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-06-03T10:33:57.949Z")
 
 
-public class Tag   {
+public class Sneaker   {
   @JsonProperty("id")
-  private Long id = null;
+  private String id = null;
 
   @JsonProperty("name")
   private String name = null;
 
-  public Tag id(Long id) {
+  @JsonProperty("photoUrls")
+  @Valid
+  private List<String> photoUrls = new ArrayList<String>();
+
+  public Sneaker id(String id) {
     this.id = id;
     return this;
   }
@@ -35,15 +39,15 @@ public class Tag   {
   @ApiModelProperty(value = "")
 
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
-  public Tag name(String name) {
+  public Sneaker name(String name) {
     this.name = name;
     return this;
   }
@@ -52,7 +56,8 @@ public class Tag   {
    * Get name
    * @return name
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "doggie", required = true, value = "")
+  @NotNull
 
 
   public String getName() {
@@ -63,6 +68,31 @@ public class Tag   {
     this.name = name;
   }
 
+  public Sneaker photoUrls(List<String> photoUrls) {
+    this.photoUrls = photoUrls;
+    return this;
+  }
+
+  public Sneaker addPhotoUrlsItem(String photoUrlsItem) {
+    this.photoUrls.add(photoUrlsItem);
+    return this;
+  }
+
+  /**
+   * Get photoUrls
+   * @return photoUrls
+  **/
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public List<String> getPhotoUrls() {
+    return photoUrls;
+  }
+
+  public void setPhotoUrls(List<String> photoUrls) {
+    this.photoUrls = photoUrls;
+  }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -72,23 +102,25 @@ public class Tag   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Tag tag = (Tag) o;
-    return Objects.equals(this.id, tag.id) &&
-        Objects.equals(this.name, tag.name);
+    Sneaker sneaker = (Sneaker) o;
+    return Objects.equals(this.id, sneaker.id) &&
+        Objects.equals(this.name, sneaker.name) &&
+        Objects.equals(this.photoUrls, sneaker.photoUrls);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(id, name, photoUrls);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Tag {\n");
+    sb.append("class Sneaker {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    photoUrls: ").append(toIndentedString(photoUrls)).append("\n");
     sb.append("}");
     return sb.toString();
   }
