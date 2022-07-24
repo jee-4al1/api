@@ -8,13 +8,11 @@ import io.swagger.api.sneaker.service.SneakerWebService;
 import io.swagger.api.sneaker.service.SneakerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-06-03T10:33:57.949Z")
@@ -30,19 +28,23 @@ public class SneakersApiController implements SneakersApi {
 
     private final SneakerService sneakerService;
 
+    private final Environment env;
+
     @org.springframework.beans.factory.annotation.Autowired
-    public SneakersApiController(ObjectMapper objectMapper, HttpServletRequest request, SneakerService sneakerService) {
+    public SneakersApiController(ObjectMapper objectMapper, HttpServletRequest request, SneakerService sneakerService, Environment env) {
         this.objectMapper = objectMapper;
         this.request = request;
         this.sneakerService = sneakerService;
-        sneakerService.BootStrapData();
+        this.env = env;
+        //sneakerService.bootstrapData();
     }
 
     public ResponseEntity<Void> updateSneakersDatabase(@ApiParam(value = "Release year of sneakers to update in database." ,required=true )  @PathVariable("releaseYear") int releaseYear) {
         System.out.println(releaseYear);
 
-        SneakerWebService sneakerWebService = new SneakerWebService();
-        sneakerService.saveSneakers(sneakerWebService.RetrieveSneakerFromApi(releaseYear));
+        SneakerWebService sneakerWebService = new SneakerWebService(objectMapper, env);
+        List<Sneaker> sneakers = sneakerWebService.retrieveSneakerFromApi(releaseYear);
+        sneakerService.saveSneakers(sneakers);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 

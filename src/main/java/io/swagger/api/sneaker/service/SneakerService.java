@@ -1,9 +1,7 @@
 package io.swagger.api.sneaker.service;
 
-import io.swagger.api.sneaker.dto.SneakerDTO;
 import io.swagger.api.sneaker.model.Sneaker;
 import io.swagger.api.sneaker.repository.SneakerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,27 +10,17 @@ import java.util.UUID;
 @Service
 public class SneakerService {
 
-    @Autowired
-    private SneakerRepository sneakerRepository;
+    private final SneakerRepository sneakerRepository;
+
+    public SneakerService(SneakerRepository sneakerRepository) {
+        this.sneakerRepository = sneakerRepository;
+    }
 
     /*
-      This methods transforms the SneakerDTO into domain Sneaker and saves the data.
-     */
-    public void saveSneakers(List<SneakerDTO> sneakerDTO) {
-        sneakerDTO
-                .forEach(
-                        data -> sneakerRepository.save(
-                            new Sneaker()
-                                    .id(UUID.randomUUID().toString())
-                                    .sneakerId(data.getSneakerId())
-                                    .name(data.getName())
-                                    .photoUrls(data.getPhotoUrls())
-                                    .brand(data.getBrand())
-                                    .gender(data.getGender())
-                                    .retailPrice(data.getRetailPrice())
-                                    .releaseYear(data.getReleaseYear())
-                        )
-                );
+          This methods transforms the SneakerDTO into domain Sneaker and saves the data.
+         */
+    public void saveSneakers(List<Sneaker> sneakers) {
+        sneakers.forEach(sneakerRepository::save);
     }
 
     public List<Sneaker> getAllSneakers() {
@@ -43,7 +31,7 @@ public class SneakerService {
         return sneakerRepository.findById(id);
     }
 
-    public void BootStrapData() {
+    public void bootstrapData() {
         sneakerRepository.save(
                 new Sneaker()
                         .id(UUID.randomUUID().toString())
