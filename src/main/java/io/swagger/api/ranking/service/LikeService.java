@@ -1,10 +1,10 @@
 package io.swagger.api.ranking.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.api.dto.SneakerPriceUpdateDTO;
+import io.swagger.api.shared.dto.SneakerPriceUpdateDTO;
 import io.swagger.api.ranking.model.Like;
 import io.swagger.api.ranking.repository.LikeRepository;
-import io.swagger.api.service.RestWebClient;
+import io.swagger.api.shared.service.RestWebClient;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 

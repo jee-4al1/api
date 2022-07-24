@@ -1,4 +1,4 @@
-package io.swagger.api.service;
+package io.swagger.api.shared.service;
 
 import io.swagger.api.sneaker.model.Sneaker;
 import io.swagger.api.sneaker.service.SneakerService;

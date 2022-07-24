@@ -1,4 +1,4 @@
-package io.swagger.api.service;
+package io.swagger.api.shared.service;
 
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;

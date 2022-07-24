@@ -2,16 +2,15 @@ package io.swagger.api.sneaker.api;
 
 import java.util.List;
 
-import io.swagger.api.dto.SneakerPriceUpdateDTO;
-import io.swagger.api.service.DiscountService;
-import io.swagger.api.service.SneakerPriceService;
+import io.swagger.api.shared.dto.SneakerPriceUpdateDTO;
+import io.swagger.api.shared.service.DiscountService;
+import io.swagger.api.shared.service.SneakerPriceService;
 import io.swagger.api.sneaker.dto.DiscountDTO;
 import io.swagger.api.sneaker.model.Sneaker;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import io.swagger.api.sneaker.service.SneakerWebService;
 import io.swagger.api.sneaker.service.SneakerService;
-import io.swagger.api.user.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;

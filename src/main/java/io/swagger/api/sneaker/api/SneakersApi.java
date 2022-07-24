@@ -7,11 +7,10 @@ package io.swagger.api.sneaker.api;
 
 import java.util.List;
 
-import io.swagger.api.dto.SneakerPriceUpdateDTO;
+import io.swagger.api.shared.dto.SneakerPriceUpdateDTO;
 import io.swagger.api.sneaker.dto.DiscountDTO;
 import io.swagger.api.sneaker.model.Sneaker;
 import io.swagger.annotations.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
