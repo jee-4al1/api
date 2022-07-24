@@ -10,6 +10,7 @@ import io.swagger.api.sneaker.model.Sneaker;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,7 +30,11 @@ import javax.validation.Valid;
 
 public class Wishlist   {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(generator = "UUID")
+  @GenericGenerator(
+          name = "UUID",
+          strategy = "org.hibernate.id.UUIDGenerator"
+  )
   @JsonProperty("id")
   @Column(name = "id", updatable = false, nullable = false)
   private String id;

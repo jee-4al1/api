@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.validation.annotation.Validated;
 
@@ -25,7 +26,11 @@ import javax.persistence.*;
 
 public class User   {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(generator = "UUID")
+  @GenericGenerator(
+          name = "UUID",
+          strategy = "org.hibernate.id.UUIDGenerator"
+  )
   @JsonProperty("id")
   @Column(name = "id", updatable = false, nullable = false)
   private String id;
@@ -62,6 +67,11 @@ public class User   {
   @Column(name = "updated_on")
   @UpdateTimestamp
   private Date updatedOn;
+
+  public User(String username, String email) {
+    this.username = username;
+    this.email = email;
+  }
 
 
   public User id(String id) {
