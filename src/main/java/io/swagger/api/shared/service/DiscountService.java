@@ -1,4 +1,4 @@
-package io.swagger.api.service;
+package io.swagger.api.shared.service;
 
 import io.swagger.api.sneaker.model.Sneaker;
 import io.swagger.api.sneaker.service.SneakerService;
@@ -23,6 +23,7 @@ public class DiscountService {
          */
         Sneaker sneaker = sneakerService.getSneakerById(sneakerId);
         int price = sneaker.getRetailPrice();
+        // Change the 3 magic number to the actual user level
         sneaker.setRetailPrice(computeLevelDiscount(3, price));
         return sneaker;
     }

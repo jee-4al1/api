@@ -1,7 +1,7 @@
 package io.swagger.api.sneaker.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.api.service.RestWebClient;
+import io.swagger.api.shared.service.RestWebClient;
 import io.swagger.api.sneaker.dto.SneakerResponseDTO;
 import io.swagger.api.sneaker.model.Sneaker;
 import lombok.SneakyThrows;

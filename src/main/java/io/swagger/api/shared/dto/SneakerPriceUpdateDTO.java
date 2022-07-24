@@ -1,4 +1,4 @@
-package io.swagger.api.dto;
+package io.swagger.api.shared.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
