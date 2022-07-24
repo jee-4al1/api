@@ -29,4 +29,9 @@ public class InMemoryLikeRepository implements  LikeRepository {
     public List<Like> findAll() {
         return List.copyOf(data.values());
     }
+
+    @Override
+    public int likeCount(String sneakerId) {
+        return (int) data.values().stream().filter(like -> like.getSneakerId().equals(sneakerId)).count();
+    }
 }

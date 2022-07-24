@@ -9,4 +9,5 @@ public interface LikeRepository {
     List<Like> findAllLikeByUserId(String userId);
     List<Like> findAllLikeBySneakerId(String sneakerId);
     List<Like> findAll();
+    int likeCount(String sneakerId);
 }
