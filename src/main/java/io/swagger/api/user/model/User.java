@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -21,6 +23,8 @@ import javax.persistence.*;
 @Table(name = "snk_user")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-06-03T10:33:57.949Z")
 
 
@@ -35,7 +39,7 @@ public class User   {
   @Column(name = "id", updatable = false, nullable = false)
   private String id;
 
-  @Column(name = "username")
+  @Column(name = "username", unique=true)
   @JsonProperty("username")
   private String username;
 
@@ -47,7 +51,7 @@ public class User   {
   @JsonProperty("lastName")
   private String lastName;
 
-  @Column(name = "email")
+  @Column(name = "email", unique=true)
   @JsonProperty("email")
   private String email;
 
