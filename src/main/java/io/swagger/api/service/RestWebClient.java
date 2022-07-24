@@ -1,4 +1,4 @@
-package io.swagger.api.sneaker.service;
+package io.swagger.api.service;
 
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,7 @@ import java.util.Map;
 
 @Service
 public class RestWebClient {
-    private HttpRequest.Builder request;
-    private String uri;
-    private Map<String, String> headers;
-    private String method;
-
+    private final HttpRequest.Builder request;
 
     public RestWebClient() {
         this.request = HttpRequest.newBuilder();
@@ -35,6 +31,11 @@ public class RestWebClient {
 
     public RestWebClient get() {
         request.method("GET", HttpRequest.BodyPublishers.noBody());
+        return this;
+    }
+
+    public RestWebClient post(String body) {
+        request.method("POST", HttpRequest.BodyPublishers.ofString(body));
         return this;
     }
 

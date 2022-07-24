@@ -16,11 +16,12 @@ public class SneakerService {
         this.sneakerRepository = sneakerRepository;
     }
 
-    /*
-          This methods transforms the SneakerDTO into domain Sneaker and saves the data.
-         */
     public void saveSneakers(List<Sneaker> sneakers) {
         sneakers.forEach(sneakerRepository::save);
+    }
+
+    public void saveSneaker(Sneaker sneaker) {
+        sneakerRepository.save(sneaker);
     }
 
     public List<Sneaker> getAllSneakers() {

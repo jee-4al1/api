@@ -6,8 +6,12 @@
 package io.swagger.api.sneaker.api;
 
 import java.util.List;
+
+import io.swagger.api.dto.SneakerPriceUpdateDTO;
+import io.swagger.api.sneaker.dto.DiscountDTO;
 import io.swagger.api.sneaker.model.Sneaker;
 import io.swagger.annotations.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +37,23 @@ public interface SneakersApi {
         method = RequestMethod.POST)
     ResponseEntity<Void> updateSneakersDatabase(@ApiParam(value = "Release year of the sneakers to update." ,required=true ) @PathVariable("releaseYear") int releaseYear);
 
+    @ApiOperation(value = "Update sneaker sneaker price based on like count.", nickname = "updateSneakerPrice", notes = "", tags={ "sneakers", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid data"),
+            @ApiResponse(code = 201, message = "successful operation") })
+    @RequestMapping(value = "/sneakers/updatePrice",
+            produces = { "application/json" },
+            method = RequestMethod.POST)
+    ResponseEntity<Sneaker> updateSneakerPrice(@ApiParam(value = "Update sneaker price based on like count." ,required=true )  @Valid @RequestBody SneakerPriceUpdateDTO body);
+
+    @ApiOperation(value = "Compute the price of a sneaker using the DiscountService", nickname = "getSneakerDiscountedPrice", notes = "", tags={ "sneakers", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Invalid data"),
+            @ApiResponse(code = 200, message = "successful operation") })
+    @RequestMapping(value = "/sneakers/price",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<Sneaker> getSneakerDiscountedPrice(@ApiParam(value = "Retrieve one sneaker with discount for the user." ,required=true )  @Valid @RequestBody DiscountDTO body);
 
     @ApiOperation(value = "Retrieve all sneakers", nickname = "getAll", notes = "", response = Sneaker.class, responseContainer = "List", tags={ "sneakers", })
     @ApiResponses(value = { 
@@ -53,5 +74,4 @@ public interface SneakersApi {
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<Sneaker> getSneakerById(@ApiParam(value = "ID of sneaker to return",required=true) @PathVariable("id") String id);
-
 }
