@@ -44,3 +44,7 @@ atlassian-ide-plugin.xml
 
 # VS Code
 .vscode/
+
+externalAPI.properties
+
+/src/main/resources/externalAPI.properties

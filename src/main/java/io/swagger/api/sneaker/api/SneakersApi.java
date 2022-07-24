@@ -24,14 +24,14 @@ import javax.validation.Valid;
 @RequestMapping(value = "/v1")
 public interface SneakersApi {
 
-    @ApiOperation(value = "Creates list of sneakers with given input array", nickname = "createSneakersWithArrayInput", notes = "", tags={ "sneakers", })
+    @ApiOperation(value = "Update sneaker database by calling an external sneaker API. Require release year of the sneakers.", nickname = "updateSneakersDatabase", notes = "", tags={ "sneakers", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 400, message = "Invalid data in the wishlist"),
-        @ApiResponse(code = 200, message = "successful operation") })
-    @RequestMapping(value = "/sneakers/createWithArray",
+        @ApiResponse(code = 400, message = "Specify a correct release year"),
+        @ApiResponse(code = 201, message = "successful operation") })
+    @RequestMapping(value = "/sneakers/update/{releaseYear}",
         produces = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> createSneakersWithArrayInput(@ApiParam(value = "List of sneaker object" ,required=true )  @Valid @RequestBody List<Sneaker> body);
+    ResponseEntity<Void> updateSneakersDatabase(@ApiParam(value = "Release year of the sneakers to update." ,required=true ) @PathVariable("releaseYear") int releaseYear);
 
 
     @ApiOperation(value = "Retrieve all sneakers", nickname = "getAll", notes = "", response = Sneaker.class, responseContainer = "List", tags={ "sneakers", })
@@ -49,9 +49,9 @@ public interface SneakersApi {
         @ApiResponse(code = 200, message = "successful operation", response = Sneaker.class),
         @ApiResponse(code = 400, message = "Invalid ID supplied"),
         @ApiResponse(code = 404, message = "Sneaker not found") })
-    @RequestMapping(value = "/sneakers/{sneakerId}",
+    @RequestMapping(value = "/sneakers/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<Sneaker> getSneakerById(@ApiParam(value = "ID of sneaker to return",required=true) @PathVariable("sneakerId") String sneakerId);
+    ResponseEntity<Sneaker> getSneakerById(@ApiParam(value = "ID of sneaker to return",required=true) @PathVariable("id") String id);
 
 }
