@@ -1,38 +1,68 @@
 package io.swagger.api.user.model;
 
+import java.util.Date;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.*;
 
 /**
  * User
  */
 @Validated
+@Entity
+@Table(name = "snk_user")
+@Getter
+@Setter
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-06-03T10:33:57.949Z")
 
 
 public class User   {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @JsonProperty("id")
-  private String id = null;
+  @Column(name = "id", updatable = false, nullable = false)
+  private String id;
 
+  @Column(name = "username")
   @JsonProperty("username")
-  private String username = null;
+  private String username;
 
+  @Column(name = "firstName")
   @JsonProperty("firstName")
-  private String firstName = null;
+  private String firstName;
 
+  @Column(name = "lastName")
   @JsonProperty("lastName")
-  private String lastName = null;
+  private String lastName;
 
+  @Column(name = "email")
   @JsonProperty("email")
-  private String email = null;
+  private String email;
 
+  @Column(name = "password")
   @JsonProperty("password")
-  private String password = null;
+  private String password;
 
+  @Column(name = "userStatus")
   @JsonProperty("userStatus")
-  private Integer userStatus = null;
+  private Integer userStatus;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "created_on")
+  @CreationTimestamp
+  private Date createdOn;
+
+  @Column(name = "updated_on")
+  @UpdateTimestamp
+  private Date updatedOn;
+
 
   public User id(String id) {
     this.id = id;

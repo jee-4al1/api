@@ -1,11 +1,18 @@
 package io.swagger.api.sneaker.model;
 
-import java.util.Objects;
+import java.util.*;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
+
+import io.swagger.api.wishlist.model.Wishlist;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -13,34 +20,60 @@ import javax.validation.constraints.*;
  * Sneaker
  */
 @Validated
+@Entity
+@Table(name = "sneaker")
+@Getter
+@Setter
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-06-03T10:33:57.949Z")
 
 
 public class Sneaker   {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id", updatable = false, nullable = false)
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("sneakerId")
-  private String sneakerId;
+  @Column(name = "sneakerWebId")
+  @JsonProperty("sneakerWebId")
+  private String sneakerWebId;
 
+  @Column(name = "name")
   @JsonProperty("name")
-  private String name = null;
+  private String name;
 
+  @Column(name = "photoUrls")
   @JsonProperty("photoUrls")
   @Valid
-  private List<String> photoUrls = new ArrayList<String>();
+  private String[] photoUrls;
 
+  @Column(name = "brand")
   @JsonProperty("brand")
   private String brand;
 
+  @Column(name = "gender")
   @JsonProperty("gender")
   private String gender;
 
+  @Column(name = "retailPrice")
   @JsonProperty("retailPrice")
   private int retailPrice;
 
+  @Column(name = "releaseYear")
   @JsonProperty("releaseYear")
   private int releaseYear;
+
+  @ManyToMany(mappedBy = "sneakers")
+  private Set<Wishlist> wishlists = new HashSet<>();
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "created_on")
+  @CreationTimestamp
+  private Date createdOn;
+
+  @Column(name = "updated_on")
+  @UpdateTimestamp
+  private Date updatedOn;
 
   /* ----------- id ----------- */
   public Sneaker id(String id) {
@@ -66,7 +99,7 @@ public class Sneaker   {
   /* ----------- sneakerId ----------- */
 
   public Sneaker sneakerId(String sneakerId) {
-    this.sneakerId = sneakerId;
+    this.sneakerWebId = sneakerId;
     return this;
   }
 
@@ -77,12 +110,12 @@ public class Sneaker   {
   @ApiModelProperty(example = "3a44fa13-bbae-4c54-a5ea-ea5a3dbbe90f", required = true, value = "")
 
 
-  public String getSneakerId() {
-    return sneakerId;
+  public String getSneakerWebId() {
+    return sneakerWebId;
   }
 
-  public void setSneakerId(String sneakerId) {
-    this.sneakerId = sneakerId;
+  public void setSneakerWebId(String sneakerId) {
+    this.sneakerWebId = sneakerId;
   }
 
   /* ----------- name ----------- */
@@ -111,12 +144,14 @@ public class Sneaker   {
   /* ----------- photoUrls ----------- */
 
   public Sneaker photoUrls(List<String> photoUrls) {
-    this.photoUrls = photoUrls;
+    this.photoUrls = photoUrls.toArray(new String[0]);
     return this;
   }
 
   public Sneaker addPhotoUrlsItem(String photoUrlsItem) {
-    this.photoUrls.add(photoUrlsItem);
+    List<String> ar = Arrays.asList(this.photoUrls);
+    ar.add(photoUrlsItem);
+    this.photoUrls = ar.toArray(new String[0]);
     return this;
   }
 
@@ -127,13 +162,14 @@ public class Sneaker   {
   @ApiModelProperty(example = "https://images.stockx.com/images/Nike-Air-Zoom-Pegasus-37-Tie-Dye-W.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1642460060", required = true, value = "")
 
 
-  public List<String> getPhotoUrls() {
+  public String[] getPhotoUrls() {
     return photoUrls;
   }
 
   public void setPhotoUrls(List<String> photoUrls) {
-    this.photoUrls = photoUrls;
+    this.photoUrls = photoUrls.toArray(new String[0]);
   }
+
 
   /* ----------- brand ----------- */
 
@@ -237,7 +273,7 @@ public class Sneaker   {
     }
     Sneaker sneaker = (Sneaker) o;
     return Objects.equals(this.id, sneaker.id) &&
-        Objects.equals(this.sneakerId, sneaker.sneakerId) &&
+        Objects.equals(this.sneakerWebId, sneaker.sneakerWebId) &&
         Objects.equals(this.name, sneaker.name) &&
         Objects.equals(this.photoUrls, sneaker.photoUrls) &&
         Objects.equals(this.brand, sneaker.brand) &&
@@ -248,7 +284,7 @@ public class Sneaker   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, sneakerId, name, photoUrls, brand, gender, retailPrice, releaseYear);
+    return Objects.hash(id, sneakerWebId, name, photoUrls, brand, gender, retailPrice, releaseYear);
   }
 
   @Override
@@ -257,7 +293,7 @@ public class Sneaker   {
     sb.append("class Sneaker {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    sneakerId: ").append(toIndentedString(sneakerId)).append("\n");
+    sb.append("    sneakerId: ").append(toIndentedString(sneakerWebId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    photoUrls: ").append(toIndentedString(photoUrls)).append("\n");
     sb.append("    brand: ").append(toIndentedString(brand)).append("\n");
