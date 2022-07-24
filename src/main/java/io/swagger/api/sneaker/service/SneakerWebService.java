@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.api.sneaker.dto.SneakerResponseDTO;
 import io.swagger.api.sneaker.model.Sneaker;
 import lombok.SneakyThrows;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.net.http.HttpResponse;
 import java.util.*;
 
 @Service
+@PropertySource("classpath:externalAPI.properties")
 public class SneakerWebService {
     private final ObjectMapper objectMapper;
 
