@@ -20,8 +20,8 @@ public class SneakerService {
         sneakers.forEach(sneakerRepository::save);
     }
 
-    public void saveSneaker(Sneaker sneaker) {
-        sneakerRepository.save(sneaker);
+    public Sneaker saveSneaker(Sneaker sneaker) {
+        return sneakerRepository.save(sneaker);
     }
 
     public List<Sneaker> getAllSneakers() {
@@ -29,7 +29,7 @@ public class SneakerService {
     }
 
     public Sneaker getSneakerById(String id) {
-        return sneakerRepository.findById(id);
+        return sneakerRepository.findById(id).orElse(null);
     }
 
     public void bootstrapData() {

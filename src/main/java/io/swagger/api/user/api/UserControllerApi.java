@@ -3,11 +3,10 @@ package io.swagger.api.user.api;
 import io.swagger.api.user.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
-import io.swagger.api.user.repository.UserRepository;
-import io.swagger.api.user.repository.UserRepositoryCustom;
+import io.swagger.api.user.repository.UserRepositoryApiCustom;
+import io.swagger.api.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,37 +18,34 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Optional;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-06-03T10:33:57.949Z")
 
 @Controller
-public class UserRepositoryController implements UserRepositoryCustom {
+public class UserControllerApi implements UserRepositoryApiCustom {
 
-    private static final Logger log = LoggerFactory.getLogger(UserRepositoryController.class);
+    private static final Logger log = LoggerFactory.getLogger(UserControllerApi.class);
 
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
-    @Autowired
-    private final UserRepository userRepository;
+
+    private final UserService userService;
 
     @org.springframework.beans.factory.annotation.Autowired
-    public UserRepositoryController(ObjectMapper objectMapper, HttpServletRequest request, UserRepository userRepository) {
+    public UserControllerApi(ObjectMapper objectMapper,
+                             HttpServletRequest request,
+                             UserService userService) {
         this.objectMapper = objectMapper;
         this.request = request;
-        this.userRepository = userRepository;
+        this.userService = userService;
+
     }
 
     @Override
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
-            User userTmp = new User(user.getUsername(), user.getEmail());
-            System.out.println(userTmp.toString());
-            User _user = userRepository
-                .save(userTmp);
-            System.out.println(_user.toString());
-            return new ResponseEntity<>(_user, HttpStatus.CREATED);
+            return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -58,10 +54,10 @@ public class UserRepositoryController implements UserRepositoryCustom {
     @Override
     public ResponseEntity<Void> deleteUser(@ApiParam(value = "The name that needs to be deleted",required=true) @PathVariable("username") String username) {
         try {
-            Optional<User> user = userRepository.findByUsername(username);
+            User user = userService.findByUsername(username);
 
-            if (user.isPresent()){
-                userRepository.delete(user.get());
+            if (user != null){
+                userService.deleteUser(user);
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -74,9 +70,9 @@ public class UserRepositoryController implements UserRepositoryCustom {
 
     @Override
     public ResponseEntity<User> getUserByName(@ApiParam(value = "The name that needs to be fetched. Use user1 for testing. ",required=true) @PathVariable("username") String username) {
-        Optional<User> userData = userRepository.findByUsername(username);
-        if (userData.isPresent()){
-            return new ResponseEntity<User>(userData.get(), HttpStatus.OK);
+        User userData = userService.findByUsername(username);
+        if (userData != null){
+            return new ResponseEntity<User>(userData, HttpStatus.OK);
         } else {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -105,16 +101,16 @@ public class UserRepositoryController implements UserRepositoryCustom {
 
     @Override
     public ResponseEntity<User> updateUser(@ApiParam(value = "name that need to be updated",required=true) @PathVariable("username") String username,@ApiParam(value = "Updated user object" ,required=true )  @Valid @RequestBody User body) {
-        Optional<User> userData = userRepository.findByUsername(username);
-        if (userData.isPresent()) {
-            User _user = userData.get();
+        User userData = userService.findByUsername(username);
+        if (userData!= null) {
+            User _user = userData;
             _user.setEmail(body.getEmail());
             _user.setFirstName(body.getFirstName());
             _user.setLastName(body.getLastName());
             _user.setPassword(body.getPassword());
             _user.setUserStatus(body.getUserStatus());
             _user.setUsername(body.getUsername());
-            return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.saveUser(_user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

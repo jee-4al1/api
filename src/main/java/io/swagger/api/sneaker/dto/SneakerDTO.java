@@ -13,7 +13,7 @@ public class SneakerDTO {
       UUID
      */
     public String id;
-    public String brand;;
+    public String brand;
     public String colorway;
     public String gender;
     public MediaDTO media;

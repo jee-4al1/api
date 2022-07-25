@@ -27,14 +27,16 @@ public class LikeService {
     public void updateLike(Like likeInfo) {
         likeRepository.save(likeInfo);
 
-        int likeCount = likeRepository.likeCount(likeInfo.getSneakerId());
+        int likeCount = likeRepository.countLikesBySneakerId(likeInfo.getSneakerId());
         String requestBody = objectMapper
                 .writerWithDefaultPrettyPrinter()
                 .writeValueAsString(new SneakerPriceUpdateDTO(likeInfo.getSneakerId(), likeCount));
+        System.out.println(requestBody);
 
+        //TODO a corrriger avec variable d'env ou @Ifzas pourquoi ne pas utiliser la route methode de sneakerPriceService?
         HttpResponse<String> response = new RestWebClient()
-                 .uri("http://localhost:8080/v1/sneakers/updatePrice")
-                 .headers(new HashMap<String, String>() {{
+                 .uri("http://localhost:8083/v1/sneakers/updatePrice")
+                 .headers(new HashMap<>() {{
                      put("Content-Type", "application/json");
                  }})
                  .post(requestBody)

@@ -27,24 +27,24 @@ public class LikeController {
         boolean isLiked = likeDTO.getIsLiked() != 0;
         Like likeInfo = new Like(likeDTO.getUserId(), likeDTO.getSneakerId(), isLiked);
         likeService.updateLike(likeInfo);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Like>> findLikeByUserId(@ApiParam(value = "User id",required=true) @PathVariable("userId") String userId) {
         List<Like> likeInfo = likeService.findLikeByUserId(userId);
-        return new ResponseEntity<List<Like>>(likeInfo, HttpStatus.OK);
+        return new ResponseEntity<>(likeInfo, HttpStatus.OK);
     }
 
     @GetMapping("/sneaker/{sneakerId}")
     public ResponseEntity<List<Like>> findLikeBySneakerId(@ApiParam(value = "Sneaker id",required=true) @PathVariable("sneakerId") String sneakerId) {
         List<Like> likeInfo = likeService.findLikeBySneakerId(sneakerId);
-        return new ResponseEntity<List<Like>>(likeInfo, HttpStatus.OK);
+        return new ResponseEntity<>(likeInfo, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<Like>> findAll() {
         List<Like> likes = likeService.findAll();
-        return new ResponseEntity<List<Like>>(likes, HttpStatus.OK);
+        return new ResponseEntity<>(likes, HttpStatus.OK);
     }
 }

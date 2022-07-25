@@ -7,7 +7,9 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.api.sneaker.model.Sneaker;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,7 +17,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 
 /**
  * Wishlist
@@ -25,6 +26,8 @@ import javax.validation.Valid;
 @Table(name = "wishlist")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-06-03T10:33:57.949Z")
 
 
@@ -44,6 +47,7 @@ public class Wishlist   {
   private String userId;
 
   @JsonProperty("isPurchased")
+  @Column(name = "isPurchased")
   private Boolean isPurchased;
 
   @ManyToMany(cascade = { CascadeType.ALL })
@@ -63,12 +67,29 @@ public class Wishlist   {
   @UpdateTimestamp
   private Date updatedOn;
 
+  public Wishlist(String userId, Boolean isPurchased) {
+    this.userId = userId;
+    this.isPurchased = isPurchased;
+  }
+
   public Wishlist id(String id) {
     this.id = id;
     return this;
   }
 
 
+  public void addSneaker(Sneaker sneaker) {
+    this.sneakers.add(sneaker);
+    sneaker.getWishlists().add(this);
+  }
+
+  public void removeSneaker(String sneakerId) {
+    Sneaker sneaker = this.sneakers.stream().filter(t -> t.getId() == sneakerId).findFirst().orElse(null);
+    if (sneaker != null) {
+      this.sneakers.remove(sneaker);
+      sneaker.getWishlists().remove(this);
+    }
+  }
   /**
    * Get id
    * @return id

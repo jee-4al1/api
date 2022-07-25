@@ -2,6 +2,7 @@ package io.swagger.api.sneaker.model;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -68,7 +69,8 @@ public class Sneaker   {
   @JsonProperty("releaseYear")
   private int releaseYear;
 
-  @ManyToMany(mappedBy = "sneakers")
+  @ManyToMany(fetch = FetchType.LAZY, mappedBy = "sneakers")
+  @JsonIgnore
   private Set<Wishlist> wishlists = new HashSet<>();
 
   @Temporal(TemporalType.TIMESTAMP)

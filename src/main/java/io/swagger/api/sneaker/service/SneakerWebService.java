@@ -31,8 +31,8 @@ public class SneakerWebService {
                         .uri(this.buildUri(releaseYear))
                         .headers(new HashMap<>(){
                             {
-                                put("X-RapidAPI-Key", env.getProperty("X-RapidAPI-Key"));
-                                put("X-RapidAPI-Host", env.getProperty("X-RapidAPI-Host"));
+                                put("X-RapidAPI-Key", "bd5865dd36msh2b759cf329fe440p1adaecjsna54592bd1706");
+                                put("X-RapidAPI-Host", "v1-sneakers.p.rapidapi.com");
                             }
                         })
                         .get()
