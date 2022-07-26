@@ -13,7 +13,7 @@ import java.net.http.HttpResponse;
 import java.util.*;
 
 @Service
-@PropertySource("classpath:externalAPI.properties")
+//@PropertySource("classpath:externalAPI.properties")
 public class SneakerWebService {
     private final ObjectMapper objectMapper;
 
