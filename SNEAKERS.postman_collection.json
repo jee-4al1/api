@@ -1,0 +1,848 @@
+{
+	"info": {
+		"_postman_id": "86c3ce66-c5d5-4587-837f-4ae58f18a82b",
+		"name": "SNEAKERS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15058777"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"date\", \"2022-06-29T16:04:03.900Z\");\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"        pm.response.to.have.body({\r",
+									"        \"createdOn\": pm.response.json().createdOn,\r",
+									"        \"updatedOn\": pm.response.json().updatedOn,\r",
+									"        \"id\": pm.response.json().id,\r",
+									"        \"username\": \"test\",\r",
+									"        \"firstName\": \"test\",\r",
+									"        \"lastName\": \"dupont\",\r",
+									"        \"email\": \"test@test.fr\",\r",
+									"        \"password\": \"test\",\r",
+									"        \"userStatus\": 0\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"createdOn\": \"2022-06-29T16:04:03.900Z\",\r\n  \"email\": \"test@test.fr\",\r\n  \"firstName\": \"test\",\r\n  \"lastName\": \"dupont\",\r\n  \"password\": \"test\",\r\n  \"userStatus\": 0,\r\n  \"username\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body({\r",
+									"        \"createdOn\": \"2022-07-24T22:56:51.313Z\",\r",
+									"        \"updatedOn\": \"2022-07-26T16:31:18.995Z\",\r",
+									"        \"id\": \"dff551ae-f06c-4e92-87f9-a41a200ada67\",\r",
+									"        \"username\": \"john\",\r",
+									"        \"firstName\": \"John\",\r",
+									"        \"lastName\": \"Smith\",\r",
+									"        \"email\": \"john@test.fr\",\r",
+									"        \"password\": \"john\",\r",
+									"        \"userStatus\": 0\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/user/john",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"user",
+								"john"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body({\r",
+									"    \"createdOn\": \"2022-07-24T22:56:51.313Z\",\r",
+									"    \"updatedOn\": \"2022-07-26T16:31:18.995Z\",\r",
+									"    \"id\": \"dff551ae-f06c-4e92-87f9-a41a200ada67\",\r",
+									"    \"username\": \"john\",\r",
+									"    \"firstName\": \"John\",\r",
+									"    \"lastName\": \"Smith\",\r",
+									"    \"email\": \"john@test.fr\",\r",
+									"    \"password\": \"john\",\r",
+									"    \"userStatus\": 0\r",
+									"});\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"createdOn\": \"2022-06-24T16:04:03.916Z\",\r\n  \"email\": \"john@test.fr\",\r\n  \"firstName\": \"John\",\r\n  \"id\": \"dff551ae-f06c-4e92-87f9-a41a200ada67\",\r\n  \"lastName\": \"Smith\",\r\n  \"password\": \"john\",\r\n  \"updatedOn\": \"2022-06-23T16:04:03.916Z\",\r\n  \"userStatus\": 0,\r\n  \"username\": \"john\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/user/john",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"user",
+								"john"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/user/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"user",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sneaker",
+			"item": [
+				{
+					"name": "Update price by like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 20\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"        pm.response.to.have.body({\r",
+									"        \"createdOn\": \"2022-07-26T16:03:56.519Z\",\r",
+									"    \"updatedOn\": pm.response.json().updatedOn,\r",
+									"    \"id\": \"67e4e197-9258-4e5e-99d3-9ca4d885d31d\",\r",
+									"    \"sneakerWebId\": \"48122403-7050-4ca9-8c6e-29f4d05429a3\",\r",
+									"    \"name\": \"Chalk Blue\",\r",
+									"    \"photoUrls\": [\r",
+									"        \"https://images.stockx.com/images/Reebok-Classic-Leather-Legacy-Chalk-Blue.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1657956089\"\r",
+									"    ],\r",
+									"    \"brand\": \"Reebook\",\r",
+									"    \"gender\": \"men\",\r",
+									"    \"retailPrice\": pm.response.json().retailPrice,\r",
+									"    \"releaseYear\": 2020\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"newRetailPrice\", pm.response.json().retailPrice);\r",
+									"pm.environment.set(\"newRetailPrice\", pm.response.json().retailPrice);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"likeCount\": 1,\r\n  \"sneakerId\": \"67e4e197-9258-4e5e-99d3-9ca4d885d31d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/sneakers/updatePrice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"sneakers",
+								"updatePrice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all sneakers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/sneakers/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"sneakers",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get sneaker by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const retailPrice = pm.environment.get(\"newRetailPrice\");\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body({\r",
+									"    \"createdOn\": \"2022-07-26T16:03:56.519Z\",\r",
+									"    \"updatedOn\": pm.response.json().updatedOn,\r",
+									"    \"id\": \"67e4e197-9258-4e5e-99d3-9ca4d885d31d\",\r",
+									"    \"sneakerWebId\": \"48122403-7050-4ca9-8c6e-29f4d05429a3\",\r",
+									"    \"name\": \"Chalk Blue\",\r",
+									"    \"photoUrls\": [\r",
+									"        \"https://images.stockx.com/images/Reebok-Classic-Leather-Legacy-Chalk-Blue.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1657956089\"\r",
+									"    ],\r",
+									"    \"brand\": \"Reebook\",\r",
+									"    \"gender\": \"men\",\r",
+									"    \"retailPrice\": retailPrice,\r",
+									"    \"releaseYear\": 2020\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/sneakers/67e4e197-9258-4e5e-99d3-9ca4d885d31d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"sneakers",
+								"67e4e197-9258-4e5e-99d3-9ca4d885d31d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get sneakers price",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const retailPrice = pm.environment.get(\"newRetailPrice\") - 17;\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body({\r",
+									"    \"createdOn\": \"2022-07-26T16:03:56.519Z\",\r",
+									"    \"updatedOn\": pm.response.json().updatedOn,\r",
+									"    \"id\": \"67e4e197-9258-4e5e-99d3-9ca4d885d31d\",\r",
+									"    \"sneakerWebId\": \"48122403-7050-4ca9-8c6e-29f4d05429a3\",\r",
+									"    \"name\": \"Chalk Blue\",\r",
+									"    \"photoUrls\": [\r",
+									"        \"https://images.stockx.com/images/Reebok-Classic-Leather-Legacy-Chalk-Blue.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1657956089\"\r",
+									"    ],\r",
+									"    \"brand\": \"Reebook\",\r",
+									"    \"gender\": \"men\",\r",
+									"    \"retailPrice\": retailPrice,\r",
+									"    \"releaseYear\": 2020\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : \"dff551ae-f06c-4e92-87f9-a41a200ada67\",\r\n    \"sneakerId\" : \"67e4e197-9258-4e5e-99d3-9ca4d885d31d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/sneakers/price",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"sneakers",
+								"price"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Like",
+			"item": [
+				{
+					"name": "get like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"/*\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body(pm.response.json());\r",
+									"});\r",
+									"*/"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isLiked\": 1,\r\n  \"sneakerId\": \"67e4e197-9258-4e5e-99d3-9ca4d885d31d\",\r\n  \"userId\": \"dff551ae-f06c-4e92-87f9-a41a200ada67\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get like by userId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"/*\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body(pm.response.json());\r",
+									"});*/"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/like/user/dff551ae-f06c-4e92-87f9-a41a200ada67",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"like",
+								"user",
+								"dff551ae-f06c-4e92-87f9-a41a200ada67"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wishlist",
+			"item": [
+				{
+					"name": "create wishlist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body({\r",
+									"    \"sneakers\": null,\r",
+									"    \"createdOn\": pm.response.json().createdOn,\r",
+									"    \"updatedOn\": pm.response.json().updatedOn,\r",
+									"    \"id\": pm.response.json().id,\r",
+									"    \"userId\": \"dff551ae-f06c-4e92-87f9-a41a200ada67\",\r",
+									"    \"isPurchased\": false\r",
+									"});\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isPurchased\": false,\r\n  \"userId\": \"dff551ae-f06c-4e92-87f9-a41a200ada67\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/wishlist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"wishlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "purchase wishlist by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body({\r",
+									"    \"sneakers\": [\r",
+									"        {\r",
+									"            \"createdOn\": \"2022-07-26T16:03:56.519Z\",\r",
+									"            \"updatedOn\": pm.response.json().sneakers[0].updatedOn,\r",
+									"            \"id\": \"67e4e197-9258-4e5e-99d3-9ca4d885d31d\",\r",
+									"            \"sneakerWebId\": \"48122403-7050-4ca9-8c6e-29f4d05429a3\",\r",
+									"            \"name\": \"Chalk Blue\",\r",
+									"            \"photoUrls\": [\r",
+									"                \"https://images.stockx.com/images/Reebok-Classic-Leather-Legacy-Chalk-Blue.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1657956089\"\r",
+									"            ],\r",
+									"            \"brand\": \"Reebook\",\r",
+									"            \"gender\": \"men\",\r",
+									"            \"retailPrice\": pm.response.json().sneakers[0].retailPrice,\r",
+									"            \"releaseYear\": 2020\r",
+									"        }\r",
+									"    ],\r",
+									"    \"createdOn\": \"2022-07-26T17:30:53.680Z\",\r",
+									"    \"updatedOn\": pm.response.json().updatedOn,\r",
+									"    \"id\": \"ea3c04b9-7fe6-41ad-a734-28436235c269\",\r",
+									"    \"userId\": \"dff551ae-f06c-4e92-87f9-a41a200ada67\",\r",
+									"    \"isPurchased\": true\r",
+									"});\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/wishlist/purchase/ea3c04b9-7fe6-41ad-a734-28436235c269",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"wishlist",
+								"purchase",
+								"ea3c04b9-7fe6-41ad-a734-28436235c269"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete wishlist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/wishlist/purchase/ea3c04b9-7fe6-41ad-a734-28436235c269",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"wishlist",
+								"purchase",
+								"ea3c04b9-7fe6-41ad-a734-28436235c269"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get not purchased wishlist by userId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/wishlist/current/dff551ae-f06c-4e92-87f9-a41a200ada67",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"wishlist",
+								"current",
+								"dff551ae-f06c-4e92-87f9-a41a200ada67"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all wishlists of user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/wishlist/dff551ae-f06c-4e92-87f9-a41a200ada67",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"wishlist",
+								"dff551ae-f06c-4e92-87f9-a41a200ada67"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add sneaker to wishlist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"67e4e197-9258-4e5e-99d3-9ca4d885d31d\",\r\n    \"sneakerWebId\": \"48122403-7050-4ca9-8c6e-29f4d05429a3\",\r\n    \"name\": \"Chalk Blue\",\r\n    \"photoUrls\": [\r\n        \"https://images.stockx.com/images/Reebok-Classic-Leather-Legacy-Chalk-Blue.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&trim=color&q=90&dpr=2&updated_at=1657956089\"\r\n    ],\r\n    \"brand\": \"Reebook\",\r\n    \"gender\": \"men\",\r\n    \"retailPrice\": 80,\r\n    \"releaseYear\": 2020\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/v1/v1/wishlist/ea3c04b9-7fe6-41ad-a734-28436235c269",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"v1",
+								"v1",
+								"wishlist",
+								"ea3c04b9-7fe6-41ad-a734-28436235c269"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
