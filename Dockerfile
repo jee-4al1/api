@@ -10,7 +10,7 @@ COPY src ./src
 # It's important to use OpenJDK 8u191 or above that has container support enabled.
 # https://hub.docker.com/r/adoptopenjdk/openjdk8
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-FROM adoptopenjdk/openjdk8:jdk8u202-b08-alpine-slim
+FROM adoptopenjdk/openjdk8:jdk8u202-b08-alpine-slim as builder
 
 # Copy the jar to the production image from the builder stage.
 COPY --from=builder /app/target/springboot-*.jar /helloworld.jar
