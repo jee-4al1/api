@@ -1,4 +1,4 @@
-# Maven
+
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -20,10 +20,12 @@ steps:
     publishJUnitResults: false
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+# Maven
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure for Students(3e62f9fd-92d4-4ce8-8b24-f8408660c2e7)'
-    appType: 'webApp'
-    WebAppName: 'jee-4al1'
+    azureSubscription: 'Azure for Students(2)(0f8ed1e2-60e7-426b-96d2-7e3b53437111)'
+    appType: 'webAppLinux'
+    WebAppName: 'jee-al1'
     packageForLinux: '$(System.DefaultWorkingDirectory)'
+    RuntimeStack: 'JAVA|11-java11'
