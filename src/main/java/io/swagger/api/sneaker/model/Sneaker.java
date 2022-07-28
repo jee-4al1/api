@@ -24,8 +24,8 @@ import javax.validation.constraints.*;
 @Validated
 @Entity
 @Table(name = "sneaker")
-@Getter
-@Setter
+//@Getter
+//@Setter
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-06-03T10:33:57.949Z")
 
 
@@ -254,6 +254,14 @@ public class Sneaker   {
     return this;
   }
 
+  public Set<Wishlist> getWishlists() {
+    return wishlists;
+  }
+
+  public void setWishlists(Set<Wishlist> wishlists) {
+    this.wishlists = wishlists;
+  }
+
   /**
    * Get retailPrice
    * @return retailPrice
@@ -311,7 +319,7 @@ public class Sneaker   {
     return sb.toString();
   }
 
-  @JsonProperty("releaseYear")
+//  @JsonProperty("releaseYear")
   /**
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
